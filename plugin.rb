@@ -43,7 +43,7 @@ after_initialize do
         if suppressed_ids.empty?
           result
         else
-          result.where("category_id not in (#{suppressed_ids})")
+          result.where("topics.category_id not in (#{suppressed_ids})")
         end
       end
     end
