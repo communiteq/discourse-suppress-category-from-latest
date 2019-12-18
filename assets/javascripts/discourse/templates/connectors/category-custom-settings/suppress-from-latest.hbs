@@ -1,0 +1,22 @@
+<section>
+  <h3>{{i18n 'category.suppress_settings_label'}}</h3>
+  {{#if siteSettings.suppress_categories_from_latest_enabled}}
+    <section class='field'>
+      <div class="suppress-from-latest">
+        <label class="checkbox-label">
+          {{input type="checkbox" checked=category.custom_fields.suppress_category_from_latest}}
+          {{i18n 'category.suppress_enabled'}}
+        </label>
+      </div>
+    </section>
+  {{/if}}
+
+  {{#unless siteSettings.suppress_categories_from_latest_enabled}}
+    <section class='field'>
+      {{i18n 'category.suppress_disabled'}}
+      <a href="/admin/site_settings/category/plugins?filter=suppress_categories_from_latest">
+        {{i18n 'category.suppress_disabled_link'}}
+      </a>
+    </section>
+  {{/unless}}
+</section>

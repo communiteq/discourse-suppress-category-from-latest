@@ -1,0 +1,4 @@
+plugins:
+  suppress_categories_from_latest_enabled:
+    default: false
+    client: true

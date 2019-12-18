@@ -1,0 +1,8 @@
+en:
+  js:
+    category:
+      suppress_settings_label: "Suppress category from latest"
+      suppress_enabled: "Don't show topics from this category in /latest."
+      suppress_disabled: "The plugin is disabled, enable it"
+      suppress_disabled_link: "here"
+
