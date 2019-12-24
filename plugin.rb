@@ -36,7 +36,7 @@ after_initialize do
   if TopicQuery.respond_to?(:results_filter_callbacks)
     suppress_categories_from_latest = Proc.new do |list_type, result, user, options|
 
-      if !SiteSetting.suppress_categories_from_latest_enabled || options[:category]
+      if !SiteSetting.suppress_categories_from_latest_enabled || options[:category] || options[:tags]
         result
       else
         suppressed_ids = Category.suppressed_ids.join(',')
