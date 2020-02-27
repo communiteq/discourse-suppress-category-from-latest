@@ -36,15 +36,19 @@ after_initialize do
   if TopicQuery.respond_to?(:results_filter_callbacks)
     suppress_categories_from_latest = Proc.new do |list_type, result, user, options|
       if !SiteSetting.suppress_categories_from_latest_enabled ||
-          options[:category] || options[:tags] || (list_type != :latest)
+          options[:tags] || (list_type != :latest)
         result
       else
-        suppressed_ids = Category.suppressed_ids.join(',')
-        if suppressed_ids.empty?
-          result
-        else
-          result.where("topics.category_id not in (#{suppressed_ids})")
-        end
+	if options[:category] && Category.suppressed_ids.include?(options[:category])
+	  result # are we watching this *specific* category? then don't filter
+	else
+          suppressed_ids = Category.suppressed_ids.join(',')
+          if suppressed_ids.empty?
+            result
+          else
+            result.where("topics.category_id not in (#{suppressed_ids})")
+          end
+	end
       end
     end
     TopicQuery.results_filter_callbacks << suppress_categories_from_latest
