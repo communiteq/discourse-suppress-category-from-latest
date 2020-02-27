@@ -40,15 +40,16 @@ after_initialize do
         result
       else
 	if options[:category] && Category.suppressed_ids.include?(options[:category])
-	  result # are we watching this *specific* category? then don't filter
+	  # are we *explicitly* visiting a filtered category? then don't filter it
+          suppressed_ids = (Category.suppressed_ids - [options[:category]]).join(',')
 	else
           suppressed_ids = Category.suppressed_ids.join(',')
-          if suppressed_ids.empty?
-            result
-          else
-            result.where("topics.category_id not in (#{suppressed_ids})")
-          end
 	end
+        if suppressed_ids.empty?
+          result
+        else
+          result.where("topics.category_id not in (#{suppressed_ids})")
+        end
       end
     end
     TopicQuery.results_filter_callbacks << suppress_categories_from_latest
