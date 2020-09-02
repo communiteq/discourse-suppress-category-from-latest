@@ -1,8 +1,8 @@
-# name: discourse-suppress-categories-from-latest
-# about: Discourse Suppress Categories From Latest
+# name: discourse-suppress-category-from-latest
+# about: Discourse Suppress Category From Latest
 # authors: richard@discoursehosting.com
 # version: 1.0
-# url: https://github.com/discoursehosting/discourse-suppress-categories-from-latest
+# url: https://github.com/discoursehosting/discourse-suppress-category-from-latest
 
 enabled_site_setting :suppress_categories_from_latest_enabled
 
