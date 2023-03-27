@@ -18,7 +18,7 @@ after_initialize do
     def self.suppressed_ids
       if @@suppressed_ids['suppressed'].nil?
         @@suppressed_ids['suppressed'] = CategoryCustomField.where(name: "suppress_category_from_latest", value: true)
-          .or(CategoryCustomField.where(name: "suppress_category_from_latest", value: true))
+          .or(CategoryCustomField.where(name: "suppress_category_from_latest", value: "true"))
           .pluck(:category_id)
       end
       @@suppressed_ids['suppressed']
@@ -27,7 +27,7 @@ after_initialize do
     protected
     def reset_suppressed_categories_cache
       @@suppressed_ids['suppressed'] = CategoryCustomField.where(name: "suppress_category_from_latest", value: true)
-        .or(CategoryCustomField.where(name: "suppress_category_from_latest", value: true))
+        .or(CategoryCustomField.where(name: "suppress_category_from_latest", value: "true"))
         .pluck(:category_id)
     end
   end
