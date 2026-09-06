@@ -1,7 +1,7 @@
 # name: discourse-suppress-category-from-latest
 # about: Discourse Suppress Category From Latest
 # authors: richard@communiteq.com
-# version: 3.0.1
+# version: 2026.7
 # url: https://github.com/discoursehosting/discourse-suppress-category-from-latest
 
 enabled_site_setting :suppress_categories_from_latest_enabled
@@ -9,10 +9,10 @@ enabled_site_setting :suppress_categories_from_latest_enabled
 after_initialize do
   Category.register_custom_field_type('suppress_category_from_latest', :boolean)
   Site.preloaded_category_custom_fields << 'suppress_category_from_latest' if Site.respond_to? :preloaded_category_custom_fields
-  
+
   class ::Category
     @@suppressed_ids = DistributedCache.new("suppressed_categories")
-    
+
     after_save :reset_suppressed_categories_cache
 
     def self.suppressed_ids
@@ -23,7 +23,7 @@ after_initialize do
       end
       @@suppressed_ids['suppressed']
     end
-    
+
     protected
     def reset_suppressed_categories_cache
       @@suppressed_ids['suppressed'] = CategoryCustomField.where(name: "suppress_category_from_latest", value: true)
@@ -32,7 +32,7 @@ after_initialize do
     end
   end
 
-  
+
   if TopicQuery.respond_to?(:results_filter_callbacks)
     suppress_categories_from_latest = Proc.new do |list_type, result, user, options|
       if !SiteSetting.suppress_categories_from_latest_enabled ||
